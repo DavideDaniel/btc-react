@@ -4,7 +4,7 @@ var expect = require('expect');
 
 describe('About', function(){
 	it('loads without problems', function(){
-		require('../app/components/About');
+		require('../src/components/About');
 	});
 	it('renders without problems', function(){
 		var About = TestUtils.renderIntoDocument(<About/>);
@@ -14,19 +14,19 @@ describe('About', function(){
 
 describe('Home', function(){
 	it('loads without problems', function(){
-		require('../app/components/Home');
+		require('../src/components/Home');
 	});
 });
 
 describe('Main', function(){
 	it('loads without problems', function(){
-		require('../app/components/Main');
+		require('../src/components/Main');
 	});
 });
 
 describe('Menu', function(){
 	it('loads without problems', function(){
-		require('../app/components/Menu');
+		require('../src/components/Menu');
 	});
 	it('renders without problems', function(){
 		var Menu = TestUtils.renderIntoDocument(<Menu/>);

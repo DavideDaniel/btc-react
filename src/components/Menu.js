@@ -1,5 +1,4 @@
 import React from 'react';
-import {Router, Route, NotFoundRoute, DefaultRoute, Link, hashHistory} from 'react-router';
 
 class Menu extends React.Component {
 	constructor(props) {

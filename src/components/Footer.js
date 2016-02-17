@@ -10,7 +10,7 @@ const Footer = () => {
             <p className="text-muted">
               <small>
                 &copy; 2016 <a href="http://hackoregon.org">HackOregon.org</a> -
-                <a href="https://twitter.com/HackOregon">Twitter</a> 
+                <a href="https://twitter.com/HackOregon">Twitter</a>
                 <a href="mailto:catherine@hackoregon.org">Email</a>
               </small>
             </p>

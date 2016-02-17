@@ -97,7 +97,7 @@ class SearchForm extends React.Component {
   render () {
     const { value, suggestions, isLoading } = this.state;
     const inputProps = {
-      className: "form-control",
+      className: 'form-control',
       placeholder: this.props.placeholder,
       value,
       onChange: this.onChange
