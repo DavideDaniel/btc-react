@@ -1,22 +1,25 @@
 import axios from 'axios';
 
-String.prototype.capitalize = (lower) => {
-    return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+String.prototype.capitalize = function(lower) {
+  return (lower ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) {
+    return a.toUpperCase();
+  });
 }
 
 function getCompetitorFromName(searchTerm) {
-  return axios.get(`http://54.213.83.132/hackoregon/http/competitors_from_name/${searchTerm}/`);
+  const searchFor = searchTerm.capitalize();
+  return axios.get(`http://54.213.83.132/hackoregon/http/competitors_from_name/${searchFor}/`);
 }
 
-function getCandidate(searchTerm){
+function getCandidate(searchTerm) {
   return axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${searchTerm}/`);
 }
 
-export default function fetchItems(searchTerm){
-  const searchFor = searchTerm.capitalize();
-  return axios.all([getCompetitorFromName(searchFor),getCandidate(searchTerm)])
-  .then((arr)=>({
-    candidates: arr[0].data,
-    committees: arr[1].data
-  }))
+// using 2 end points to give more search suggestions
+export default function getSearchTermItems(searchTerm) {
+  return axios.all([getCompetitorFromName(searchTerm), getCandidate(searchTerm)])
+    .then((arr) => ({
+        candidate_names: arr[0].data,
+        related: arr[1].data
+    }))
 }

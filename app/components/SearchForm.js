@@ -1,9 +1,8 @@
 import React from 'react';
-// import SearchInput from './SearchInput';
 import Autosuggest from 'react-autosuggest';
-import Button from './Button';
 import ErrorMessage from './ErrorMessage';
 import {hashHistory} from 'react-router';
+import getSearchTermItems from '../utils/helpers';
 
 const SearchItems = [{"tran_id":2172756,
    "tran_date":"2016-02-12",
@@ -64,6 +63,9 @@ const SearchItems = [{"tran_id":2172756,
    "contributor_payee_class":null}
 ];
 
+const jsonData = ({data}) =>{
+  console.log(data);
+}
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -83,25 +85,27 @@ function getMatches(value,dataArr) {
     return [];
   }
   const regex = new RegExp('^' + escapedValue, 'i');
-  return dataArr.filter(data => regex.test(data.filer));
+  return dataArr.filter(data => regex.test(data.candidate_name));
 }
 
-function fetchItems(data){
-  // axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${value}`)
-  let promised = new Promise( (resolve, reject) =>
-    setTimeout(()=>{
-      resolve(data);
-    },10))
-  return promised;
-}
+// faking ajax call for now but will be able where we fetch the initial data
+// function getSuggestions(value){
 
-function getSuggestionValue(suggestion) { // when suggestion selected, this function tells
-  return suggestion.filer;                 // what should be the value of the input
+  // let promised = new Promise( (resolve, reject) =>
+  //   setTimeout(()=>{
+  //     resolve(data);
+  //   },10))
+  // return promised;
+
+// }
+
+function getSuggestionValue(suggestion) {
+  return suggestion.candidate_name;
 }
 
 function renderSuggestion(suggestion) {
   return (
-    <span>{suggestion.filer}</span>
+    <span>{suggestion.candidate_name}</span>
   );
 }
 
@@ -125,17 +129,18 @@ class SearchForm extends React.Component {
     // AJAX call
     // axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${value}`)
     // axios.get(`http://54.213.83.132/hackoregon/http/current_candidate_transactions/470/`)
-        fetchItems(SearchItems)
-        .then((data)=>{
+        getSearchTermItems(value).then((data)=>{
         // const suggestions = getSuggestions(data);
-        const suggestions = getMatches(value,data);
+        let dataArr = [...data.candidate_names,...data.related]
+        console.log(dataArr);
+        const suggestions = getMatches(value,dataArr);
 
         if (value === this.state.value) {
           this.setState({
             isLoading: false,
             suggestions
           });
-        } else { // Ignore suggestions if input value changed
+        } else {
           this.setState({
             isLoading: false
           })
@@ -156,18 +161,6 @@ class SearchForm extends React.Component {
     onSuggestionsUpdateRequested({ value }) {
       this.loadSuggestions(value);
     }
-
-    // onSuggestionsUpdateRequested({ value }) {
-    //
-    //   this.setState({
-    //     suggestions: getSuggestions(value)
-    //   });
-    // }
-
-
-  // getRef(ref){
-  //   this.searchTerm = ref;
-  // }
 
   handleSubmit(){
     const search_term = this.searchTermRef.value;
