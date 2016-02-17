@@ -24958,6 +24958,10 @@
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
+	var _axios = __webpack_require__(249);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -24968,79 +24972,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchItems = [{ "tran_id": 2172756,
-	  "tran_date": "2016-02-12",
-	  "filer": "Prentiss Courtney for State Senate",
-	  "contributor_payee": "C&E Systems",
-	  "sub_type": "Cash Expenditure",
-	  "amount": 425.55,
-	  "contributor_payee_committee_id": null,
-	  "filer_id": 470,
-	  "purp_desc": "#2814",
-	  "book_type": "Business Entity",
-	  "addr_line1": "PO Box 42307",
-	  "filed_date": "2016-02-15",
-	  "addr_line2": null,
-	  "city": "Portland",
-	  "state": "OR",
-	  "zip": 97242,
-	  "purpose_codes": "Management Services; Postage",
-	  "direction": "out",
-	  "contributor_payee_class": null }, { "tran_id": 2172761,
-	  "tran_date": "2016-02-04",
-	  "filer": "Peter Courtney for State Senate",
-	  "contributor_payee": "Peter Courtney",
-	  "sub_type": "Cash Expenditure",
-	  "amount": 409.78,
-	  "contributor_payee_committee_id": null,
-	  "filer_id": 470,
-	  "purp_desc": "mileage",
-	  "book_type": "Candidates Immediate Family",
-	  "addr_line1": "2925 Island View Dr NE",
-	  "filed_date": "2016-02-15",
-	  "addr_line2": null,
-	  "city": "Salem",
-	  "state": "OR",
-	  "zip": 97303,
-	  "purpose_codes": "Travel Expenses (need description)",
-	  "direction": "out",
-	  "contributor_payee_class": null }, { "tran_id": 2172760,
-	  "tran_date": "2016-02-04",
-	  "filer": "Peter Sunwoo for State Senate",
-	  "contributor_payee": "Peter Courtney",
-	  "sub_type": "Cash Expenditure",
-	  "amount": 64.99,
-	  "contributor_payee_committee_id": null,
-	  "filer_id": 470,
-	  "purp_desc": null,
-	  "book_type": "Candidates Immediate Family",
-	  "addr_line1": "2925 Island View Dr NE",
-	  "filed_date": "2016-02-15",
-	  "addr_line2": null,
-	  "city": "Salem",
-	  "state": "OR",
-	  "zip": 97303,
-	  "purpose_codes": "Reimbursement for Personal Expenditures",
-	  "direction": "out",
-	  "contributor_payee_class": null }];
-
-	var jsonData = function jsonData(_ref) {
-	  var data = _ref.data;
-
-	  console.log(data);
-	};
 	function escapeRegexCharacters(str) {
 	  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	}
-
-	// function getSuggestions(value) {
-	//   const inputValue = value.trim().toLowerCase();
-	//   const inputLength = inputValue.length;
-	//
-	//   return inputLength === 0 ? [] : SearchItems.filter(lang =>
-	//     lang.filer.toLowerCase().slice(0, inputLength) === inputValue
-	//   );
-	// }
 
 	function getMatches(value, dataArr) {
 	  var escapedValue = escapeRegexCharacters(value.trim());
@@ -25052,17 +24986,6 @@
 	    return regex.test(data.candidate_name);
 	  });
 	}
-
-	// faking ajax call for now but will be able where we fetch the initial data
-	// function getSuggestions(value){
-
-	// let promised = new Promise( (resolve, reject) =>
-	//   setTimeout(()=>{
-	//     resolve(data);
-	//   },10))
-	// return promised;
-
-	// }
 
 	function getSuggestionValue(suggestion) {
 	  return suggestion.candidate_name;
@@ -25091,6 +25014,7 @@
 	    };
 	    _this.onChange = _this.onChange.bind(_this);
 	    _this.onSuggestionsUpdateRequested = _this.onSuggestionsUpdateRequested.bind(_this);
+	    _this.setRef = _this.setRef.bind(_this);
 	    return _this;
 	  }
 
@@ -25103,13 +25027,8 @@
 	        isLoading: true
 	      });
 
-	      // AJAX call
-	      // axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${value}`)
-	      // axios.get(`http://54.213.83.132/hackoregon/http/current_candidate_transactions/470/`)
 	      (0, _helpers2.default)(value).then(function (data) {
-	        // const suggestions = getSuggestions(data);
 	        var dataArr = [].concat(_toConsumableArray(data.candidate_names), _toConsumableArray(data.related));
-	        console.log(dataArr);
 	        var suggestions = getMatches(value, dataArr);
 
 	        if (value === _this2.state.value) {
@@ -25126,8 +25045,8 @@
 	    }
 	  }, {
 	    key: 'onChange',
-	    value: function onChange(event, _ref2) {
-	      var newValue = _ref2.newValue;
+	    value: function onChange(event, _ref) {
+	      var newValue = _ref.newValue;
 
 	      this.setState({
 	        value: newValue
@@ -25135,29 +25054,31 @@
 	    }
 	  }, {
 	    key: 'onSuggestionSelected',
-	    value: function onSuggestionSelected(event, _ref3) {
-	      var suggestionValue = _ref3.suggestionValue;
+	    value: function onSuggestionSelected(event, _ref2) {
+	      var suggestionValue = _ref2.suggestionValue;
 
 	      this.loadSuggestions(suggestionValue);
 	    }
 	  }, {
 	    key: 'onSuggestionsUpdateRequested',
-	    value: function onSuggestionsUpdateRequested(_ref4) {
-	      var value = _ref4.value;
+	    value: function onSuggestionsUpdateRequested(_ref3) {
+	      var value = _ref3.value;
 
 	      this.loadSuggestions(value);
 	    }
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit() {
-	      var search_term = this.searchTermRef.value;
+	      var search_term = this.searchTermRef;
+	      this.searchTermRef = '';
+	      _axios2.default.get('http://54.213.83.132/hackoregon/http/candidate_search/' + search_term);
 	      console.log('Make API call to: http://54.213.83.132/hackoregon/http/candidate_search/' + search_term);
 	      // hashHistory.push(null,'/#/'+search_term);
 	      // this.props.addSearch(search_term);
 	    }
 	  }, {
-	    key: 'getRef',
-	    value: function getRef(ref) {
+	    key: 'setRef',
+	    value: function setRef(ref) {
 	      this.searchTermRef = ref;
 	    }
 	  }, {
@@ -25190,14 +25111,14 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'form-group col-sm-7' },
-	            _react2.default.createElement(_reactAutosuggest2.default, { suggestions: suggestions,
+	            _react2.default.createElement(_reactAutosuggest2.default, { ref: function ref() {
+	                return _this3.setRef(_this3.state.value);
+	              },
+	              suggestions: suggestions,
 	              onSuggestionsUpdateRequested: this.onSuggestionsUpdateRequested,
 	              getSuggestionValue: getSuggestionValue,
 	              renderSuggestion: renderSuggestion,
-	              inputProps: inputProps,
-	              ref: function ref(_ref5) {
-	                return _this3.getRef(_ref5);
-	              } })
+	              inputProps: inputProps })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -27858,8 +27779,7 @@
 	  return _axios2.default.get('http://54.213.83.132/hackoregon/http/candidate_search/' + searchTerm + '/');
 	}
 
-	function combine(arr1, arr2) {}
-
+	// using 2 end points to give more search suggestions
 	function getSearchTermItems(searchTerm) {
 	  return _axios2.default.all([getCompetitorFromName(searchTerm), getCandidate(searchTerm)]).then(function (arr) {
 	    return {
