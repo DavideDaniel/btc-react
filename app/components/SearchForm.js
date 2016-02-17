@@ -80,7 +80,11 @@ class SearchForm extends React.Component {
   handleSubmit(){
     const search_term = this.searchTermRef;
     this.searchTermRef = '';
-    axios.get(`http://54.213.83.132/hackoregon/http/candidate_search/${search_term}`)
+    axios.get({
+      url: `http://54.213.83.132/hackoregon/http/candidate_search/${search_term}`,
+      headers: {'X-Requested-With': 'XMLHttpRequest'},
+      responseType: 'json'
+    })
     console.log('Make API call to: http://54.213.83.132/hackoregon/http/candidate_search/'+search_term);
     // hashHistory.push(null,'/#/'+search_term);
     // this.props.addSearch(search_term);

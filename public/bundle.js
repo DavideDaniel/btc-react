@@ -25071,7 +25071,11 @@
 	    value: function handleSubmit() {
 	      var search_term = this.searchTermRef;
 	      this.searchTermRef = '';
-	      _axios2.default.get('http://54.213.83.132/hackoregon/http/candidate_search/' + search_term);
+	      _axios2.default.get({
+	        url: 'http://54.213.83.132/hackoregon/http/candidate_search/' + search_term,
+	        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+	        responseType: 'json'
+	      });
 	      console.log('Make API call to: http://54.213.83.132/hackoregon/http/candidate_search/' + search_term);
 	      // hashHistory.push(null,'/#/'+search_term);
 	      // this.props.addSearch(search_term);

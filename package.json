@@ -47,6 +47,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.2.5",
     "normalize.css": "^3.0.3",
-    "webpack": "1.12.9"
+    "webpack": "1.12.9",
+    "webpack-dev-server": "^1.14.1"
   }
 }
