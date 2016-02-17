@@ -2,6 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import datasample from '../config/datasample.json';
+import Button from './Button';
 
 const SearchItems = [{"tran_id":2172756,
    "tran_date":"2016-02-12",
@@ -66,25 +67,20 @@ function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function getSuggestions(value) {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : SearchItems.filter(lang =>
-    lang.filer.toLowerCase().slice(0, inputLength) === inputValue
-  );
-}
-
-// function fet(value){
-//   console.log(value);
+// function getSuggestions(value) {
+//   const inputValue = value.trim().toLowerCase();
+//   const inputLength = inputValue.length;
+//
+//   return inputLength === 0 ? [] : SearchItems.filter(lang =>
+//     lang.filer.toLowerCase().slice(0, inputLength) === inputValue
+//   );
 // }
+
 function getMatches(value,dataArr) {
   const escapedValue = escapeRegexCharacters(value.trim());
-
   if (escapedValue === '') {
     return [];
   }
-
   const regex = new RegExp('^' + escapedValue, 'i');
   return dataArr.filter(data => regex.test(data.filer));
 }
@@ -108,19 +104,17 @@ function renderSuggestion(suggestion) {
   );
 }
 
-class Search extends React.Component {
-  constructor() {
-    super();
+const SearchInput =({props}) => {
 
     this.state = {
-      value: '',
-      suggestions: getSuggestions(''),
-      isLoading: false
+        value: this.props.params.value || '',
+        suggestions: getMatches(''),
+        isLoading: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
-  }
+
 
   loadSuggestions(value) {
     this.setState({
@@ -172,20 +166,23 @@ class Search extends React.Component {
   render() {
     const { value, suggestions, isLoading } = this.state;
     const inputProps = {
-      placeholder: 'Search for candidate, measure or PAC name',
+      name: this.props.params.name,
+      placeholder: this.props.params.placeholder,
       value,
       onChange: this.onChange
     };
     const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
 
     return (
+      <div>
       <Autosuggest suggestions={suggestions}
                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                    getSuggestionValue={getSuggestionValue}
                    renderSuggestion={renderSuggestion}
                    inputProps={inputProps} />
+      </div>
     );
   }
 }
 
-export default Search;
+export default SearchInput;

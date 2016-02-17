@@ -4,7 +4,7 @@ import React from 'react';
 import Main from '../components/Main';
 import Home from '../components/Home';
 import About from '../components/About';
-import {Router, Route, IndexRoute, NotFoundRoute, DefaultRoute, Link, browserHistory} from 'react-router';
+import {Router, Route, IndexRoute, NotFoundRoute, DefaultRoute, Link, hashHistory} from 'react-router';
 
 
 export default (

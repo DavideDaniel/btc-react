@@ -1,5 +1,5 @@
 import React from 'react';
-import {Router, Route, NotFoundRoute, DefaultRoute, Link, browserHistory} from 'react-router';
+import {Router, Route, NotFoundRoute, DefaultRoute, Link, hashHistory} from 'react-router';
 
 class Menu extends React.Component {
 	constructor(props) {
@@ -18,7 +18,7 @@ class Menu extends React.Component {
 	render(){
 		var self = this;
 		return (
-      <ul className="Menu-bar nav navbar-nav navbar-right">{this.props.items.map((item, index) => {
+      <ul className="nav navbar-nav navbar-right">{this.props.items.map((item, index) => {
           var style = '';
           if (self.state.focused == index) {
             style = 'focused';

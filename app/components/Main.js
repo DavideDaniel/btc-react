@@ -2,15 +2,16 @@ import React from 'react';
 import Home from './Home';
 import About from './About';
 import Menu from './Menu';
-import Search from './Search';
-import {Router, Route, NotFoundRoute, DefaultRoute, Link, browserHistory} from 'react-router';
+import SearchForm from './SearchForm';
+import Footer from './Footer';
+import {Router, Route, NotFoundRoute, DefaultRoute, Link, hashHistory} from 'react-router';
 
 
 const Main = ({children, history}) => {
 	return (
       <div className="main-container">
         <nav className="navbar navbar-default" role="navigation">
-          <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
+          <div className="col-sm-7 col-sm-offset-2">
 						<Menu items={[
         			< Link to = "/" > Home < /Link>,
         			< Link to = "about/" > About < /Link>
@@ -18,9 +19,10 @@ const Main = ({children, history}) => {
           </div>
         </nav>
         <div className="container">
-					< Search />
+					< SearchForm placeholder={"Search for candidate, measure or PAC name"}/>
           {children}
         </div>
+				<Footer />
       </div>
     );
 }
