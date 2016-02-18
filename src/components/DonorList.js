@@ -1,5 +1,5 @@
 import React from 'react';
-import Rebase from 're-base';
+// import Rebase from 're-base';
 
 // const base = Rebase.createClass('https://btc-dev.firebaseio.com/');
 
