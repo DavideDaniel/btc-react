@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 // import CampaignsList from './CampaignsList';
 
 // const CampaignsPage = (props) => {
