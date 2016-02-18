@@ -1,7 +1,8 @@
 import React from 'React';
-import DonorList from './DonorList';
+// import DonorList from './DonorList';
 
-const DonorPage = (props) => {
+// const DonorPage = (props) => {
+const DonorPage = () => {
   return (
     <div>Donor Page</div>
   )
