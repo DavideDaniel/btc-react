@@ -119,7 +119,7 @@ class SearchForm extends React.Component {
 
           </div>
           <div className="form-group col-sm-1">
-            <li className="ion-ios-search" onClick={this.handleSubmit.bind(this)}/>
+            <button className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>
           </div>
         </form>
       </div>
