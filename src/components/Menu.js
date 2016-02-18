@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 class Menu extends React.Component {
 	constructor(props) {
@@ -31,4 +31,7 @@ class Menu extends React.Component {
 	}
 }
 
+Menu.PropTypes = {
+	items: PropTypes.element.isRequired
+}
 export default Menu;

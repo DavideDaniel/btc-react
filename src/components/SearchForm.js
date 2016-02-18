@@ -1,7 +1,7 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-import ErrorMessage from './ErrorMessage';
-import {hashHistory} from 'react-router';
+// import ErrorMessage from './ErrorMessage';
+// import {hashHistory} from 'react-router';
 import getSearchTermItems from '../utils/helpers';
 import axios from 'axios';
 
@@ -85,7 +85,7 @@ class SearchForm extends React.Component {
       headers: {'X-Requested-With': 'XMLHttpRequest'},
       responseType: 'json'
     })
-    console.log('Make API call to: http://54.213.83.132/hackoregon/http/candidate_search/'+search_term);
+    // console.log('Make API call to: http://54.213.83.132/hackoregon/http/candidate_search/'+search_term);
     // hashHistory.push(null,'/#/'+search_term);
     // this.props.addSearch(search_term);
   }
@@ -96,14 +96,15 @@ class SearchForm extends React.Component {
 
   render () {
     const { value, suggestions, isLoading } = this.state;
+    const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
     const inputProps = {
       className: 'form-control',
-      placeholder: this.props.placeholder,
+      placeholder: this.props.placeholder || status,
       value,
       onChange: this.onChange
     };
 
-    const status = (isLoading ? 'Loading...' : 'Type to load suggestions');
+
 
     return(
       <div className="col-sm-12">
@@ -118,9 +119,7 @@ class SearchForm extends React.Component {
 
           </div>
           <div className="form-group col-sm-1">
-            <button type="submit" className="btn btn-sm btn-block btn-default" onClick={this.handleSubmit.bind(this)}>
-            Search
-            </button>
+            <button className="btn btn-default" onClick={this.handleSubmit.bind(this)}>Submit</button>
           </div>
         </form>
       </div>
@@ -129,7 +128,8 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.PropTypes = {
-  history: React.PropTypes.object.isRequired
+  history: React.PropTypes.object.isRequired,
+  placeholder: React.PropTypes.string
 }
 
 export default SearchForm;

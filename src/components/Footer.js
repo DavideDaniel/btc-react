@@ -8,11 +8,9 @@ const Footer = () => {
           <div className="col-md-12">
             <br/>
             <p className="text-muted">
-              <small>
-                &copy; 2016 <a href="http://hackoregon.org">HackOregon.org</a> -
-                <a href="https://twitter.com/HackOregon">Twitter</a>
-                <a href="mailto:catherine@hackoregon.org">Email</a>
-              </small>
+                &copy; 2016 <a href="http://hackoregon.org">HackOregon.org</a>&nbsp-&nbsp
+                <a href="https://twitter.com/HackOregon">Twitter</a>&nbsp
+                  <a href="mailto:catherine@hackoregon.org">Email</a>
             </p>
           </div>
         </div>
