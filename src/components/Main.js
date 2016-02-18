@@ -20,15 +20,15 @@ const Main = ({children}) => {
 			<Link to = "/" className="navbar-brand"> Behind <span>the</span> Curtain </Link>
     </div>
 
-			<div className="collapse navbar-collapse id="navLinks"">
+			<div className="collapse navbar-collapse" id="navLinks">
 						<Menu className="navbar-left"items={[
-        			<Link to = "search" activeStyle={{text-decoration:'underline'}}> Search </Link>,
-        			<Link to = "oregon" activeStyle={{text-decoration:'underline'}}> Oregon </Link>,
-							<Link to = "campaigns" activeStyle={{text-decoration:'underline'}}> Campaigns </Link>,
-							<Link to = "donors" activeStyle={{text-decoration:'underline'}}> Donors </Link>,
-							<Link to = "candidates" activeStyle={{text-decoration:'underline'}}> Candidates </Link>,
-        			<Link to = "about" activeStyle={{text-decoration:'underline'}}> About </Link>,
-							<Link to = "faq" activeStyle={{text-decoration:'underline'}}> FAQ </Link>
+        			<Link to = "search" activeClassName="active"> Search </Link>,
+        			<Link to = "oregon" activeClassName="active"> Oregon </Link>,
+							<Link to = "campaigns" activeClassName="active"> Campaigns </Link>,
+							<Link to = "donors" activeClassName="active"> Donors </Link>,
+							<Link to = "candidates" activeClassName="active"> Candidates </Link>,
+        			<Link to = "about" activeClassName="active"> About </Link>,
+							<Link to = "faq" activeClassName="active"> FAQ </Link>
       			]}/>
           </div>
           </div>
