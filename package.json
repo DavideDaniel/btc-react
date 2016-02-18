@@ -29,6 +29,7 @@
     "re-base": "^1.5.1",
     "react": "^0.14.0",
     "react-autosuggest": "^3.5.0",
+    "react-bootstrap": "^0.28.3",
     "react-css-modules": "^3.7.4",
     "react-dom": "^0.14.0",
     "react-redux": "^4.4.0",
